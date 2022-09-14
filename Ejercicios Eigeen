@@ -1,0 +1,82 @@
+Author:Julieth Manzano
+Materia: Introducción a HPC
+Taller de Eigen
+Fecha:14/09/2022
+********************************/
+//Librerias para usar std y Eigen
+#include <iostream>
+#include <eigen3/Eigen/Dense>
+#include <vector>
+
+int main(){
+    //se crean dos matrices de tamaño 2x2 tipo float
+    Eigen::Matrix2f A;
+    Eigen::Matrix2f B;
+
+    //se asignan manualmente los valores de las matrices
+    A<< 4,-2,1,-7;
+    B<<-1,2,6,-5;
+
+    std::cout<<"Se imprime matriz A:\n"<<A<<std::endl;
+    std::cout<<"Se imprime matriz B:\n"<<B<<std::endl;
+    std::cout<<"Ecuación: X = 3A -4B "<<std::endl;
+
+    //Se crea una matriz que va a guardar el resultado
+    Eigen::Matrix2f resultado;
+
+    resultado = 3*A - 4*B;
+    std::cout<<"Se imprime resultado:\n"<<resultado<<std::endl;
+
+    /********************* B) X = (3BA -4A)/2 ********************/
+    std::cout<<"Ejercicio b)"<<std::endl;
+
+    //Se crea la matriz X 2x2 de float que es el resultado de la ecuación
+    Eigen::MatrixXf X;
+    //Se reasignan los valores de las matrices A,B
+    A<<0,-1,2,1;
+    B<<1,2,3,4;
+
+    std::cout<<"\n\nSe imprime matriz A:\n"<<A<<std::endl;
+    std::cout<<"\nSe imprime matriz B:\n"<<B<<std::endl;
+
+    std::cout<<"Ecuación: X = (3BA -4A)/2 "<<std::endl;
+
+    //Matriz X va a tomar el valor de las operaciones a realizar
+    X=(3*B*A - 4*A) * 1/2;
+    std::cout<<"resultado matriz X:\n"<<X<<std::endl;
+
+    /***************** C) X = A^-1 * C * B^-1 ****************/
+    std::cout<<"\nEjercicio c)"<<std::endl;
+    //Se crea la matriz C
+    Eigen::Matrix2f C,Y;
+    C<<1,1,0,0;
+
+    //Se reasignan los valores de las matrices A, B
+    A<<-3,-2,3,3;
+    B<<5,3,9,4;
+
+    std::cout<<"\n\nSe imprime matriz A:\n"<<A<<std::endl;
+    std::cout<<"\nSe imprime matriz B:\n"<<B<<std::endl;
+    std::cout<<"\nSe imprime matriz C:\n"<<C<<std::endl;
+    std::cout<<"\nSe imprime matriz B transpuesta:\n"<<B.transpose()<<std::endl;
+
+    std::cout<<"Ecuación:  X = A^-1 * C * B^-1 "<<std::endl;
+    //Matriz X es el resultado de la Ec.
+    X = A.inverse() * C * B.transpose().inverse();
+    std::cout<<"\nresultado matriz X:\n"<<X<<std::endl;
+
+    /***************** d) X = B * A^-1 ****************/
+    std::cout<<"\nEjercicio d)"<<std::endl;
+    //Se reasignan los valores de las matrices A,B
+    A<<2,1,-4,-3;
+    B<<2,2,6,4;
+
+    std::cout<<"\n\nSe imprime matriz A:\n"<<A<<std::endl;
+    std::cout<<"\nSe imprime matriz B:\n"<<B<<std::endl;
+
+    //Matriz X es el resultado de la Ec.
+    std::cout<<"Ecuación: X = B * A^-1"<<std::endl;
+    X = B * A.inverse();
+    std::cout<<"\nresultado matriz X:\n"<<X<<std::endl;
+
+    /***************** e) X = 2(AB +C) ****************/
